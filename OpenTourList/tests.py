@@ -11,7 +11,7 @@ class HomePageTest(TestCase):
 
 	def test_mainpage_returns_correst_view(self):
 		request = HttpRequest()
-		response = MainPage(request)
+		response = MainPage(request)nj
 		html = response.content.decode('utf8')
 		self.assertTrue(html.startswith('<html>'))
 		self.assertIn('<title> Open Tourist Spots List </title>', html)
