@@ -9,28 +9,29 @@ class PageTest(unittest.TestCase):
 	def setUp (self):
 		self.browser = webdriver.Firefox()
 
-	#def tearDown(self):
-		#self.browser.quit()
-
-	def test_browser_title(self):
-		self.browser.get('http://localhost:8000')
-		self.assertIn('Open Tourist Spots', self.browser.title)
-		#self.fail('Finish the Test')
-
 	def test_start_list_and_retrieve_it(self):
-		self.browser.get('http://localhost.8000')
-		self.assertIn('Open Tourist Spots',self.browser.title)
-		headerText+self.browser.find_element_by_tag_name('h1').text
-		self.assertIn('Open Tourist Spots', headerText)
-		inputbox = self.browser.find_element_by_id('idLocEntry')
-		self.assertEqual(inputbox.get_attribute('placeholder'),'Input your preferred tourist spot')
-		inputbox.send_keys('Palawan')
-		inputbox.send_keys(Keys.ENTER)
+		self.browser.get('http://localhost:8000')
+		self.assertIn('CoVid-19 Enhanced Local Travel Registration', self.browser.title)
+		headerText = self.browser.find_element_by_tag_name('h1').text
+		self.assertIn('Enhanced Local Travel Registration in compliance to CoVid-19 ', headerText)
+		sectionText = self.browser.find_element_by_tag_name('h2').text
+		self.assertIn('Tourist Personal Information', sectionText)
+		inputname = self.browser.find_element_by_id('idName')
+		self.assertEqual(inputname.get_attribute('placeholder'),'Lastname, Firstname, M.I.')
+		inputname.send_keys('Dela Cruz, Juana R.')
+		inputname.send_keys(Keys.ENTER)
 		time.sleep(1)
-		table = self.browser.find_element_by_id('idListTable')
-		rows = table.find_elements_by_tag_name('tr')
-		self.assertTrue(any(row.text == '1: Palawan'))
-		self.fail('Finish the Test')
+		inputcode = self.browser.find_element_by_id('idUniCode')
+		self.assertEqual(inputcode.get_attribute('placeholder'),'Swab Test Result Code')
+		inputcode.send_keys('DHG-852LKJ-CXV')
+		inputcode.send_keys(Keys.ENTER)
+		time.sleep(1)
+		inputloc1 = self.browser.find_element_by_id('idLocEntry1')
+		self.assertEqual(inputloc1.get_attribute('placeholder'),'Input your preferred local destination')
+		inputloc1.send_keys('Cebu')
+		inputloc1.send_keys(Keys.ENTER)
+		btnConfirm = self.browser.find_element_by_id('btnConfirm')
+		btnConfirm.click()
 
 if __name__== '__main__':
 	unittest.main(warnings='ignore')  

@@ -15,5 +15,5 @@ class HomePageTest(TestCase):
 		response = MainPage(request)
 		html = response.content.decode('utf8')
 		self.assertTrue(html.strip().startswith('<html>'))
-		self.assertIn('<title> Open Tourist Spots List </title>', html)
+		self.assertIn('<title> CoVid-19 Enhanced Local Travel Registration </title>', html)
 		self.assertTrue(html.strip().endswith('</html>'))
