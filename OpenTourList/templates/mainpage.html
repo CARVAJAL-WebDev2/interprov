@@ -1,11 +1,43 @@
 <html>
-<title> CoVid-19 Enhanced Local Travel Registration </title>
-<body>
-<h1 style = "font-color:blue; font-size:22px; font-style:bold;" > Enhanced Local Travel Registration in compliance to CoVid-19 restrictions</h1>
-<h2 style = "font-color:black; font-size:18px; font-style:bold;" > Tourist Personal Information </h1> <br>
-<input bold type = "text" id = "idName" name = "idName" placeholder = 'Lastname, Firstname, M.I.'> </br>
-<input bold type = "text" id = "idUniCode" name = "idUniCode" placeholder = 'Swab Test Result Code'> </br>
-<input bold type = "text" id = "idLocEntry1" name = "idLocEntry1" placeholder = 'Input your preferred local destination'>
-<input type = "submit" id = "btnConfirm" name = "btnConfirm" value = "Confirm">
-</body>
+	<title> CoVid-19 Enhanced Local Travel Registration </title>
+	<script> </script>
+	<body>
+		<h1 style = "font-color:blue; font-size:22px; font-style:bold;" > 
+			Enhanced Local Travel Registration in compliance to CoVid-19 restrictions
+		</h1>
+		<form method="POST">
+			<label> Tourist Personal Information </label> <br>
+			<input 
+				type = "text"
+				id = "idName"
+				name = "idName" 
+				placeholder = 'Lastname, Firstname, M.I.'
+				/> <br>
+			<input 
+				type = "text"
+				id = "idUniCode"
+				name = "idUniCode"
+				placeholder = 'Swab Test Result Code'
+				/> <br>
+			<input
+				type = "text"
+				id = "idLocEntry1"
+				name = "idLocEntry1"
+				placeholder = 'Input your preferred local destination'
+				/> <br>
+			<input 
+				type = "submit"
+				id = "btnConfirm"
+				name = "btnConfirm"
+				value = "Confirm"
+				/>
+				{% csrf_token %}
+		</form>
+		<table id="listTable" name ="listTable">
+			<tr>
+				<td>{{ newTouristName }}</td>
+				<td>{{ newSwabCode }}</td>
+				<td>{{ newDestination }}</td>
+			</tr></table>
+		</body>
 </html>
