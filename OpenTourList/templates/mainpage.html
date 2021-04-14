@@ -11,7 +11,7 @@
 				type = "text"
 				id = "idName"
 				name = "idName" 
-				placeholder = 'Lastname, Firstname, M.I.'
+				placeholder = 'Full Name'
 				/> <br>
 			<input 
 				type = "text"
@@ -21,25 +21,24 @@
 				/> <br>
 			<input
 				type = "text"
-				id = "idLocEntry1"
-				name = "idLocEntry1"
-				placeholder = 'Input your preferred local destination'
+				id = "idLocEntry"
+				name = "idLocEntry"
+				placeholder = 'Preferred Local Destination'
 				/> <br>
 			<input 
 				type = "submit"
 				id = "btnConfirm"
 				name = "btnConfirm"
+				style = "color: blue; background-color: lightblue"
 				value = "Confirm"
 				/>
 				{% csrf_token %}
 		</form>
-		<table id="listTable" name ="listTable">
+		<table id="inList" name ="inList">
 			<tr>
 				<td style = "font-size:20px; font-style:bold;">1: {{ newTouristName }}</td>
-				<td>with Swab Test Result Code</td>
-				<td style = "font-size:20px; font-style:bold;">{{ newSwabCode }}</td>
-				<td>from</td>
-				<td style = "font-size:20px; font-style:bold;">{{ newDestination }}</td>
+				<td > {{ newSwabCode }}</td>
+				<td > {{ newDestination }}</td>
 			</tr>
 		</table>
 		</body>
