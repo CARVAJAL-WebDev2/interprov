@@ -35,11 +35,9 @@
 				{% csrf_token %}
 		</form>
 		<table id="inList" name ="inList">
-			<tr>
-				<td style = "font-size:20px; font-style:bold;">1: {{ newTouristName }}</td>
-				<td > {{ newSwabCode }}</td>
-				<td > {{ newDestination }}</td>
-			</tr>
+			{% for item in newTouristName %}
+			<tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+			{% endfor %}
 		</table>
 		</body>
 </html>

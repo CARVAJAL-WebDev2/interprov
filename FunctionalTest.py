@@ -54,7 +54,7 @@ class PageTest(unittest.TestCase):
 		time.sleep(2)
 		btnCon.click()
 		time.sleep(2)
-		self.check_rows_in_listtable('1: Edgardo Epifanio DHG-852LKJ-CXV Palawan')
+		self.check_rows_in_listtable('1: Edgardo Epifanio')# DHG-852LKJ-CXV Palawan')
 		#
 		inName = self.browser.find_element_by_id('idName')
 		inName.click()
@@ -75,7 +75,7 @@ class PageTest(unittest.TestCase):
 		time.sleep(2)
 		btnCon.click()
 		time.sleep(2)
-		self.check_rows_in_listtable("2: Filomena Sanchez HGF-523PKL-PKN Cebu")
+		self.check_rows_in_listtable("2: Filomena Sanchez") # HGF-523PKL-PKN Cebu")
 		#table = self.browser.find_element_by_id('listTable')
 		#rows = table.find_elements_by_tag_name('tr')
 		#self.assertIn('1: Edgardo Epifanio (DHG-852LKJ-CXV) from Palawan', [row.text for row in rows])
