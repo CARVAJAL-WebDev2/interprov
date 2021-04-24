@@ -24,10 +24,10 @@ class HomePageTest(TestCase):
 		itemName = Item.objects.first()
 		self.assertEqual(itemName.text, 'newTouristName')
 
-	def test_redirects_POST(self):
+	def test_redirects_after_POST(self):
 		response = self.client.post('/', data = {'idName': 'newTouristName'})
 		self.assertEqual(response.status_code, 302)
-		self.assertEqual(response['location'], '/')
+		self.assertEqual(response['location'], '/OpenTourList/listview_url/')
 
 	def test_template_displays_list(self):
 		Item.objects.create(text = 'Entry List 1')
@@ -50,6 +50,14 @@ class ORMUnitTest(TestCase):
 		#savedItem2 = savedItems[1]
 		self.assertEqual(entryName.text, 'Item one')
 		#self.assertEqual(savedItem2.text, 'Item two')
+class ViewTest(TestCase):
+	def test_displays_all(self):
+		Item.objects.create(text='Kennedy Reeks')
+		Item.objects.create(text='Samantha Bragais')
+		response = self.client.get('/OpenTourList/listview_url/')
+		self.assertContains(response, 'Kennedy Reeks')
+		self.assertContains(response, 'Samantha Bragais')
+
 '''	
 	def test_root_url_resolves_to_mainpage_view(self):
 		found = resolve('/')

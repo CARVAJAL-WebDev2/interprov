@@ -5,11 +5,14 @@ from django.http import HttpResponse
 def MainPage(request):
 	if request.method == 'POST':
 		Item.objects.create(text=request.POST['idName'])
-		return redirect('/')
+		return redirect('/OpenTourList/listview_url/')
 	#return render(request,'mainpage.html',)
 	items = Item.objects.all()
 	return render(request,'mainpage.html', {'newTouristName': items})
 
+def ListView(request):
+	items = Item.objects.all()
+	return render(request,'mainpage.html',{'newTouristName': items})
 
 	#if request.method == 'POST':
 	#	item1 = request.POST['idName']
