@@ -50,8 +50,13 @@ class ORMUnitTest(TestCase):
 		#savedItem2 = savedItems[1]
 		self.assertEqual(entryName.text, 'Item one')
 		#self.assertEqual(savedItem2.text, 'Item two')
+
 class ViewTest(TestCase):
-	def test_displays_all(self):
+	def test_uses_list_template(self):
+		response = self.client.get('/OpenTourList/listview_url/')
+		self.assertTemplateUsed(response, 'listview.html')
+
+	def test_displays_all_items(self):
 		Item.objects.create(text='Kennedy Reeks')
 		Item.objects.create(text='Samantha Bragais')
 		response = self.client.get('/OpenTourList/listview_url/')

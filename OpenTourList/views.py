@@ -7,12 +7,13 @@ def MainPage(request):
 		Item.objects.create(text=request.POST['idName'])
 		return redirect('/OpenTourList/listview_url/')
 	#return render(request,'mainpage.html',)
-	items = Item.objects.all()
-	return render(request,'mainpage.html', {'newTouristName': items})
+	#items = Item.objects.all()
+	return render(request,'mainpage.html')
+	# , {'newTouristName': items}
 
 def ListView(request):
 	items = Item.objects.all()
-	return render(request,'mainpage.html',{'newTouristName': items})
+	return render(request,'listview.html',{'newTouristName': items})
 
 	#if request.method == 'POST':
 	#	item1 = request.POST['idName']

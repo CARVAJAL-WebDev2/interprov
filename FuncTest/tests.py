@@ -40,7 +40,7 @@ class PageTest(LiveServerTestCase):
 		self.browser.get(self.live_server_url)
 		self.assertIn('New Normal PH', self.browser.title)
 		headerText = self.browser.find_element_by_tag_name('h1').text
-		self.assertIn('Inter-Provincial Commuter Destination Tracker', headerText)
+		self.assertIn('Inter-Provincial Tourist Destination Tracker', headerText)
 		sectionText = self.browser.find_element_by_tag_name('label').text
 		self.assertIn('Tourist Personal Information', sectionText)
 		inName = self.browser.find_element_by_id('idName')
@@ -112,8 +112,8 @@ class PageTest(LiveServerTestCase):
 		self.browser.quit()
 		self.browser = webdriver.Firefox()
 		self.browser.get(self.live_server_url)
-		pageContent = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('Maria Regalado', pageContent)
+		page_text = self.browser.find_element_by_tag_name('body').text
+		self.assertNotIn('Maria Regalado', page_text)
 		time.sleep(.1)
 		inName = self.browser.find_element_by_id('idName')
 		inName.click()
@@ -130,15 +130,15 @@ class PageTest(LiveServerTestCase):
 		btnCon = self.browser.find_element_by_id('btnConfirm')
 		btnCon.click()
 		self.wait_rows_in_listtable('2: George Bullock')
-		user2_url = self.browser.current_url
-		self.assertRegex(user2_url, '/OpenTourList/.+')
-		self.assertNotEqual(listview_url, user2_url)
+		listuser_url = self.browser.current_url
+		self.assertRegex(listuser_url, '/OpenTourList/.+')
+		self.assertNotEqual(listview_url, listuser_url)
 		page_text = self.browser.find_element_by_tag_name('body').text
-		#self.assertNotIn('Maria Regalado', page_text)
+		self.assertNotIn('Maria Regalado', page_text)
 		self.assertIn('George Bullock', page_text)
 
-if __name__== '__main__':
-	unittest.main(warnings='ignore')  
+# if __name__== '__main__':
+# 	unittest.main(warnings='ignore')  
 
 #def teardown(self):
 	#	self.browser.quit()
