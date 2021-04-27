@@ -19,6 +19,10 @@ def ListNew(request):
 	Item.objects.create(text=request.POST['idName'])
 	return redirect('/OpenTourList/listview_url/')
 
+# def addItem (request):
+# 	Item.objects.create(text=request.POST['idName'])
+# 	return redirect('/OpenTourList/listview_url/')
+
 	#if request.method == 'POST':
 	#	item1 = request.POST['idName']
 	#	Item.objects.create(text=request.POST['idName'])

@@ -28,9 +28,9 @@ class PageTest(LiveServerTestCase):
 				rows = table.find_elements_by_tag_name('tr')
 				self.assertIn(row_text, [row.text for row in rows])
 				return
-			except (AssertionError, WebDriverException) as c:
+			except (AssertionError, WebDriverException) as e:
 				if time.time()-start_time>cWait:
-					raise c
+					raise e
 
 		#table = self.browser.find_element_by_id('inList')
 		#rows = table.find_elements_by_tag_name('tr')
@@ -63,7 +63,6 @@ class PageTest(LiveServerTestCase):
 		time.sleep(.1)
 		btnCon = self.browser.find_element_by_id('btnConfirm')
 		btnCon.click()
-		self.wait_rows_in_listtable('1: Edgardo Epifanio')# DHG-852LKJ-CXV Palawan')
 		#
 		time.sleep(.1)
 		inName = self.browser.find_element_by_id('idName')
@@ -81,6 +80,7 @@ class PageTest(LiveServerTestCase):
 		btnCon = self.browser.find_element_by_id('btnConfirm')
 		btnCon.click()
 		self.wait_rows_in_listtable("2: Filomena Sanchez") # HGF-523PKL-PKN Cebu")
+		self.wait_rows_in_listtable('1: Edgardo Epifanio')# DHG-852LKJ-CXV Palawan')
 		#table = self.browser.find_element_by_id('listTable')
 		#rows = table.find_elements_by_tag_name('tr')
 		#self.assertIn('chuchu', [row.text for row in rows])
@@ -88,9 +88,8 @@ class PageTest(LiveServerTestCase):
 		#self.assertIn('2: Leona Krookroo (WRT-JHA852-KLN) from Cebu', [row.text for row in rows])
 		#return
 		#self.fail('Finish the Test!')
-	def test_other_users_different_urls(self):
+	def test_multiple_users_can_start_lists_at_different_urls(self):
 		self.browser.get(self.live_server_url)
-		time.sleep(.1)
 		inName = self.browser.find_element_by_id('idName')
 		inName.click()
 		inName.send_keys('Maria Regalado')
@@ -106,14 +105,17 @@ class PageTest(LiveServerTestCase):
 		btnCon = self.browser.find_element_by_id('btnConfirm')
 		btnCon.click()
 		self.wait_rows_in_listtable('1: Maria Regalado')
+		#first unique URL
 		listview_url = self.browser.current_url
 		self.assertRegex(listview_url, '/OpenTourList/.+')
-
+		#New Browser Session
 		self.browser.quit()
 		self.browser = webdriver.Firefox()
+
 		self.browser.get(self.live_server_url)
-		page_text = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('Maria Regalado', page_text)
+		text_page = self.browser.find_element_by_tag_name('body').text
+		self.assertNotIn('Maria Regalado', text_page)
+
 		time.sleep(.1)
 		inName = self.browser.find_element_by_id('idName')
 		inName.click()
@@ -130,12 +132,14 @@ class PageTest(LiveServerTestCase):
 		btnCon = self.browser.find_element_by_id('btnConfirm')
 		btnCon.click()
 		self.wait_rows_in_listtable('2: George Bullock')
-		listuser_url = self.browser.current_url
-		self.assertRegex(listuser_url, '/OpenTourList/.+')
-		self.assertNotEqual(listview_url, listuser_url)
-		page_text = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('Maria Regalado', page_text)
-		self.assertIn('George Bullock', page_text)
+		
+		#second unique URL
+		userview2_url = self.browser.current_url
+		self.assertRegex(userview2_url, '/OpenTourList/.+')
+		# self.assertNotEqual(userview2_url, listview_url)
+		text_page = self.browser.find_element_by_tag_name('body').text
+		self.assertNotIn('Maria Regalado', text_page)
+		self.assertIn('George Bullock', text_page)
 
 # if __name__== '__main__':
 # 	unittest.main(warnings='ignore')  
