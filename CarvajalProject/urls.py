@@ -3,8 +3,8 @@ from OpenTourList import views
 
 urlpatterns = [
 	url(r'^$', views.MainPage, name='mainpage'),
-	url(r'^OpenTourList/userview2_url$', views.ListNew, name='userview'),
-	url(r'^OpenTourList/listview_url/$', views.ListView, name='listview'),
+	# url(r'^OpenTourList/userview2_url$', views.ListNew, name='userview'),
+	# url(r'^OpenTourList/listview_url/$', views.ListView, name='listview'),
 	
 ]
 

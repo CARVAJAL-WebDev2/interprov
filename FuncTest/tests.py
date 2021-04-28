@@ -6,6 +6,8 @@ from django.test import LiveServerTestCase
 from selenium.common.exceptions import WebDriverException
 
 cWait = 3
+
+
 class PageTest(LiveServerTestCase):
 	
 	def setUp (self):
@@ -31,12 +33,13 @@ class PageTest(LiveServerTestCase):
 			except (AssertionError, WebDriverException) as e:
 				if time.time()-start_time>cWait:
 					raise e
+				time.sleep(0.5)
 
 		#table = self.browser.find_element_by_id('inList')
 		#rows = table.find_elements_by_tag_name('tr')
 		#self.assertIn(row_text, [row.text for row in rows])
 
-	def test_start_list_one_user(self):
+	def test_start_a_list_and_retrieve_it_later(self):
 		self.browser.get(self.live_server_url)
 		self.assertIn('New Normal PH', self.browser.title)
 		headerText = self.browser.find_element_by_tag_name('h1').text
@@ -88,58 +91,58 @@ class PageTest(LiveServerTestCase):
 		#self.assertIn('2: Leona Krookroo (WRT-JHA852-KLN) from Cebu', [row.text for row in rows])
 		#return
 		#self.fail('Finish the Test!')
-	def test_multiple_users_can_start_lists_at_different_urls(self):
-		self.browser.get(self.live_server_url)
-		inName = self.browser.find_element_by_id('idName')
-		inName.click()
-		inName.send_keys('Maria Regalado')
-		time.sleep(.1)
-		inCode = self.browser.find_element_by_id('idUniCode')
-		inCode.click()
-		inCode.send_keys('YUP-OKJ874-LKI')
-		time.sleep(.1)
-		inLoc = self.browser.find_element_by_id('idLocEntry')
-		inLoc.click()
-		inLoc.send_keys('Masbate')
-		time.sleep(.1)
-		btnCon = self.browser.find_element_by_id('btnConfirm')
-		btnCon.click()
-		self.wait_rows_in_listtable('1: Maria Regalado')
-		#first unique URL
-		listview_url = self.browser.current_url
-		self.assertRegex(listview_url, '/OpenTourList/.+')
-		#New Browser Session
-		self.browser.quit()
-		self.browser = webdriver.Firefox()
+	# def test_multiple_users_can_start_lists_at_different_urls(self):
+	# 	self.browser.get(self.live_server_url)
+	# 	inName = self.browser.find_element_by_id('idName')
+	# 	inName.click()
+	# 	inName.send_keys('Maria Regalado')
+	# 	time.sleep(.1)
+	# 	inCode = self.browser.find_element_by_id('idUniCode')
+	# 	inCode.click()
+	# 	inCode.send_keys('YUP-OKJ874-LKI')
+	# 	time.sleep(.1)
+	# 	inLoc = self.browser.find_element_by_id('idLocEntry')
+	# 	inLoc.click()
+	# 	inLoc.send_keys('Masbate')
+	# 	time.sleep(.1)
+	# 	btnCon = self.browser.find_element_by_id('btnConfirm')
+	# 	btnCon.click()
+	# 	self.wait_rows_in_listtable('1: Maria Regalado')
+	# 	#first unique URL
+	# 	listview_url = self.browser.current_url
+	# 	self.assertRegex(listview_url, '/OpenTourList/.+')
+	# 	#New Browser Session
+	# 	self.browser.quit()
+	# 	self.browser = webdriver.Firefox()
 
-		self.browser.get(self.live_server_url)
-		text_page = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('Maria Regalado', text_page)
+	# 	self.browser.get(self.live_server_url)
+	# 	text_page = self.browser.find_element_by_tag_name('body').text
+	# 	self.assertNotIn('Maria Regalado', text_page)
 
-		time.sleep(.1)
-		inName = self.browser.find_element_by_id('idName')
-		inName.click()
-		inName.send_keys('George Bullock')
-		time.sleep(.1)
-		inCode = self.browser.find_element_by_id('idUniCode')
-		inCode.click()
-		inCode.send_keys('PKL-IHN874-PLK')
-		time.sleep(.1)
-		inLoc = self.browser.find_element_by_id('idLocEntry')
-		inLoc.click()
-		inLoc.send_keys('Siargao')
-		time.sleep(.1)
-		btnCon = self.browser.find_element_by_id('btnConfirm')
-		btnCon.click()
-		self.wait_rows_in_listtable('2: George Bullock')
+	# 	time.sleep(.1)
+	# 	inName = self.browser.find_element_by_id('idName')
+	# 	inName.click()
+	# 	inName.send_keys('George Bullock')
+	# 	time.sleep(.1)
+	# 	inCode = self.browser.find_element_by_id('idUniCode')
+	# 	inCode.click()
+	# 	inCode.send_keys('PKL-IHN874-PLK')
+	# 	time.sleep(.1)
+	# 	inLoc = self.browser.find_element_by_id('idLocEntry')
+	# 	inLoc.click()
+	# 	inLoc.send_keys('Siargao')
+	# 	time.sleep(.1)
+	# 	btnCon = self.browser.find_element_by_id('btnConfirm')
+	# 	btnCon.click()
+	# 	self.wait_rows_in_listtable('2: George Bullock')
 		
-		#second unique URL
-		userview2_url = self.browser.current_url
-		self.assertRegex(userview2_url, '/OpenTourList/.+')
-		# self.assertNotEqual(userview2_url, listview_url)
-		text_page = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('Maria Regalado', text_page)
-		self.assertIn('George Bullock', text_page)
+	# 	#second unique URL
+	# 	userview2_url = self.browser.current_url
+	# 	self.assertRegex(userview2_url, '/OpenTourList/.+')
+	# 	self.assertNotEqual(userview2_url, listview_url)
+	# 	text_page = self.browser.find_element_by_tag_name('body').text
+	# 	self.assertNotIn('Maria Regalado', text_page)
+	# 	self.assertIn('George Bullock', text_page)
 
 # if __name__== '__main__':
 # 	unittest.main(warnings='ignore')  

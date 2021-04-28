@@ -1,23 +1,22 @@
 from django.shortcuts import render, redirect
 from OpenTourList.models import Item
-from django.http import HttpResponse
+# from django.http import HttpResponse
 
 def MainPage(request):
-	return render(request,'mainpage.html')
-	# if request.method == 'POST':
-	# 	Item.objects.create(text=request.POST['idName'])
-	# 	return redirect('/OpenTourList/listview_url/')
-	#return render(request,'mainpage.html',)
-	#items = Item.objects.all()
-	# , {'newTouristName': items}
-
-def ListView(request):
+	if request.method == 'POST':
+		Item.objects.create(text=request.POST['idName'])
+		return redirect('/OpenTourList/listview_url/')
+	return render(request) #,'mainpage.html',)
 	items = Item.objects.all()
-	return render(request,'listview.html',{'newTouristName': items})
+	return render(request,'mainpage.html'), {'newTouristName': items}
 
-def ListNew(request):
-	Item.objects.create(text=request.POST['idName'])
-	return redirect('/OpenTourList/listview_url/')
+# def ListView(request):
+# 	items = Item.objects.all()
+# 	return render(request,'listview.html',{'newTouristName': items})
+
+# def ListNew(request):
+# 	Item.objects.create(text=request.POST['idName'])
+# 	return redirect('/OpenTourList/listview_url/')
 
 # def addItem (request):
 # 	Item.objects.create(text=request.POST['idName'])
