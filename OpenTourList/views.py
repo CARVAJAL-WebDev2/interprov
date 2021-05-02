@@ -1,26 +1,31 @@
 from django.shortcuts import render, redirect
-from OpenTourList.models import Item
-# from django.http import HttpResponse
+from OpenTourList.models import Item, Tourist
+from django.http import HttpResponse
 
 def MainPage(request):
-	if request.method == 'POST':
-		Item.objects.create(text=request.POST['idName'])
-		return redirect('/OpenTourList/listview_url/')
-	return render(request) #,'mainpage.html',)
-	items = Item.objects.all()
-	return render(request,'mainpage.html'), {'newTouristName': items}
+	return render(request,'mainpage.html')
+	# if request.method == 'POST':
+	# 	Item.objects.create(text=request.POST['idName'])
+		# return redirect('/OpenTourList/listview_link/')
+	# return redirect('mainpage.html')
+	# items = Item.objects.all()
+	 #, {'newTouristName': items})
 
-# def ListView(request):
-# 	items = Item.objects.all()
-# 	return render(request,'listview.html',{'newTouristName': items})
+def ListView(request, TourId):
+	tId = Tourist.objects.get(id=TourId)
+	return render(request, 'listpage.html',{'TourId': tId})
+	# items = Item.objects.filter(TourId=tId)
 
-# def ListNew(request):
-# 	Item.objects.create(text=request.POST['idName'])
-# 	return redirect('/OpenTourList/listview_url/')
+def ListNew(request):
+	newTourist = Tourist.objects.create()
+	Item.objects.create(TourId=newTourist, text=request.POST['idName'])
+	return redirect(f'/OpenTourList/{newTourist.id}/')
 
-# def addItem (request):
-# 	Item.objects.create(text=request.POST['idName'])
-# 	return redirect('/OpenTourList/listview_url/')
+def ItemAdd (request, tId):
+	tId = Tourist.objects.get(id=tId)
+	Item.objects.create(TourId=tId, text=request.POST['idName'])
+	return redirect(f'/OpenTourList/{tId.id}/')
+# 	pass
 
 	#if request.method == 'POST':
 	#	item1 = request.POST['idName']
@@ -30,7 +35,7 @@ def MainPage(request):
 	#	item1 = ''
 	#return render(request,'mainpage.html', {'newTouristName': item1,})
 
-	#item1 = Item()
+	#item1 = Item() 
 	#item1.text=request.POST.get('idName','')
 	#item1.save()
 	#return render(request,'mainpage.html',{'newTouristName': item1.text,})
