@@ -1,32 +1,32 @@
-from django.shortcuts import render, redirect
-from OpenTourList.models import Item, Tourist
 from django.http import HttpResponse
+from OpenTourList.models import Item, Tourist
+from django.shortcuts import render, redirect
 
 def MainPage(request):
-	return render(request,'mainpage.html')
+	return render(request, 'mainpage.html')
+
+def ViewersList(request, TourId):
+	tId = Tourist.objects.get(id=TourId)
+	return render(request, 'listpage.html', {'TourId': tId})
+
+def NewestList(request):
+	newTourist = Tourist.objects.create()
+	Item.objects.create(TourId=newTourist, text=request.POST['idName'])
+	return redirect(f'/OpenTourList/{newTourist.id}/')
+
+def AddSomeItem(request,tId):
+	tId = Tourist.objects.get(id=tId)
+	Item.objects.create(TourId=tId,text=request.POST['idName'])
+	return redirect(f'/OpenTourList/{tId.id}/')
+
+# 	pass
+
 	# if request.method == 'POST':
 	# 	Item.objects.create(text=request.POST['idName'])
 		# return redirect('/OpenTourList/listview_link/')
 	# return redirect('mainpage.html')
 	# items = Item.objects.all()
 	 #, {'newTouristName': items})
-
-def ListView(request, TourId):
-	tId = Tourist.objects.get(id=TourId)
-	return render(request, 'listpage.html',{'TourId': tId})
-	# items = Item.objects.filter(TourId=tId)
-
-def ListNew(request):
-	newTourist = Tourist.objects.create()
-	Item.objects.create(TourId=newTourist, text=request.POST['idName'])
-	return redirect(f'/OpenTourList/{newTourist.id}/')
-
-def ItemAdd (request, tId):
-	tId = Tourist.objects.get(id=tId)
-	Item.objects.create(TourId=tId, text=request.POST['idName'])
-	return redirect(f'/OpenTourList/{tId.id}/')
-# 	pass
-
 	#if request.method == 'POST':
 	#	item1 = request.POST['idName']
 	#	Item.objects.create(text=request.POST['idName'])

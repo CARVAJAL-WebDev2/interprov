@@ -2,12 +2,6 @@
 	<head>
 	<style type="text/css">
 	body 	{background-color: #D9ED92;}
-	h1 		{font-size: 1.5rem;}
-    		{font-color:#184E77;} 
-    		{border: 2px #52B69A;}
-  			{padding: 30px;}
-  	label	{font-color:#168AAD;}
-  			{font-size:.8rem;}
   	</style>
 
 
@@ -24,35 +18,35 @@
 				name = "idName" 
 				placeholder = 'Full Name'
 				/> <br>
-			<label> Email Address </label>
+			<label> Email Address </label><br>
 			<input 
 				type = "email"
 				id = "idEmail"
 				name = "idEmail" 
 				placeholder = 'Email Address'
 				/> <br>
-			<label> Swab Result Code </label>
+			<label> Swab Result Code </label><br>
 			<input 
 				type = "text"
 				id = "idUniCode"
 				name = "idUniCode"
 				placeholder = 'Swab Test Result Code'
 				/> <br>
-			<label> Present Address </label>
+			<label> Present Address </label><br>
 			<input 
 				type = "text"
 				id = "idOrigin"
 				name = "idOrigin"
 				placeholder = 'Where did you come from?'
 				/> <br>
-			<label> Place of Destination </label>
+			<label> Place of Destination </label><br>
 			<input
 				type = "text"
 				id = "idDestination"
 				name = "idDestination"
 				placeholder = 'Preferred Local Destination'
 				/> <br>
-			<label> Travel Purpose </label><br>
+			<label> Travel Purpose </label><br><br>
 			<input
 				type = "text"
 				id = "idPurpose"
@@ -89,7 +83,9 @@
 		</form>
 		<table id="inList" name ="inList">
 			{% for item in TourId.item_set.all %}
-			<tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
+			<tr>
+				<td>{{ forloop.counter }}: {{ item.text }}</td>
+			</tr>
 			{% endfor %}
 		</body>
 </html>
