@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class OpentourlistConfig(AppConfig):
-    name = 'OpenTourList'
+class EmergencyConfig(AppConfig):
+    name = 'Emergency'

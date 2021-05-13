@@ -34,7 +34,7 @@ class ViewTest(TestCase):
 		newRecruit = Recruit.objects.create()
 		Item.objects.create(RecId=newRecruit, text='MJ')
 		Item.objects.create(RecId=newRecruit, text='LJ')
-		response = self.client.get(f'/Emergency/{newRecruit.id}/')
+		response = self.client.get(f'/OpenTourList/{newRecruit.id}/')
 		self.assertContains(response, 'MJ')
 		self.assertContains(response, 'LJ')
 		self.assertNotContains(response, 'Jay Em')
@@ -43,41 +43,41 @@ class ViewTest(TestCase):
 		newRecruit_2 = Recruit.objects.create()
 		Item.objects.create(RecId=newRecruit_2, text='Jay Em')
 		Item.objects.create(RecId=newRecruit_2, text='Em Jay')
-		response = self.client.get(f'/Emergency/{newRecruit_2.id}/')
+		response = self.client.get(f'/OpenTourList/{newRecruit_2.id}/')
 		self.assertContains(response, 'Jay Em')
 		self.assertContains(response, 'Em Jay')
 
 		
 	def test_listview_uses_listpage(self):
 		newRecruit = Recruit.objects.create()
-		response = self.client.get(f'/Emergency/{newRecruit.id}/')
+		response = self.client.get(f'/OpenTourList/{newRecruit.id}/')
 		self.assertTemplateUsed(response, 'listpage.html')
 
 	def test_pass_list_to_template(self):
 		dummyList1 = Recruit.objects.create()
 		dummyList2 = Recruit.objects.create()
 		passList = Recruit.objects.create()
-		response = self.client.get(f'/Emergency/{passList.id}/')
+		response = self.client.get(f'/OpenTourList/{passList.id}/')
 		self.assertEqual(response.context['RecId'], passList)
 
 class CreateListTest(TestCase):
 	def test_save_POST_request(self):
-		response = self.client.post('/Emergency/newlist_url',data={'Newmember':'New entry'})	
+		response = self.client.post('/OpenTourList/newlist_url',data={'Newmember':'New entry'})	
 		self.assertEqual(Item.objects.count(),1)
 		newItem = Item.objects.first()
 		self.assertEqual(newItem.text, 'New entry')
 
 	def test_redirects_POST(self):
-		response = self.client.post('/Emergency/newlist_url',data={'Newmember':'New entry'})
+		response = self.client.post('/OpenTourList/newlist_url',data={'Newmember':'New entry'})
 		newList = Recruit.objects.first()
-		self.assertRedirects(response, f'/Emergency/{newList.id}/')
+		self.assertRedirects(response, f'/OpenTourList/{newList.id}/')
 
 class AddItemTest(TestCase):
 	def test_add_POST_request_to_existing_list(self):
 		DummyList1 = Recruit.objects.create()
 		DummyList2 = Recruit.objects.create()
 		existingList = Recruit.objects.create()
-		self.client.post(f'/Emergency/{existingList.id}/addItem',data={'Newmember': 'New item for existing list'})
+		self.client.post(f'/OpenTourList/{existingList.id}/addItem',data={'Newmember': 'New item for existing list'})
 		self.assertEqual(Item.objects.count(),1)
 		newItem = Item.objects.first()
 		self.assertEqual(newItem.text, 'New item for existing list')
@@ -88,5 +88,5 @@ class AddItemTest(TestCase):
 	 	DummyList2 = Recruit.objects.create()
 	 	DummyList3 = Recruit.objects.create()
 	 	existingList = Recruit.objects.create()
-	 	response = self.client.post(f'/Emergency/{existingList.id}/addItem',data={'Newmember': 'New item for existing list'})
-	 	self.assertRedirects(response, f'/Emergency/{existingList.id}/')		
+	 	response = self.client.post(f'/OpenTourList/{existingList.id}/addItem',data={'Newmember': 'New item for existing list'})
+	 	self.assertRedirects(response, f'/OpenTourList/{existingList.id}/')		
