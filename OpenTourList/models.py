@@ -1,8 +1,8 @@
 from django.db import models
 
-class Recruit(models.Model):
+class Tourist(models.Model):
 	pass
 
 class Item(models.Model):
-	RecId = models.ForeignKey(Recruit, default=None, on_delete=models.CASCADE)
+	TourId = models.ForeignKey(Tourist, default=None, on_delete=models.CASCADE)
 	text = models.TextField(default="")
