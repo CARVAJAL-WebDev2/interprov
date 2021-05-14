@@ -1,7 +1,5 @@
 from django.test import TestCase
 from OpenTourList.models import Item, Tourist
-from .views import MainPage, ViewersList, NewestList, AddSomeItem
-
 	
 class HomePageTest(TestCase):
 	def test_mainpage_returns_correct_view(self):
@@ -34,18 +32,18 @@ class ORMTest(TestCase):
 class ViewTest(TestCase):
 	def test_displays_each_recruit(self):
 		newTourist = Tourist.objects.create()
-		Item.objects.create(TourId=newTourist, text='Ken')
 		Item.objects.create(TourId=newTourist, text='Sam')
+		Item.objects.create(TourId=newTourist, text='Ken')
 		response = self.client.get(f'/OpenTourList/{newTourist.id}/')
-		self.assertContains(response, 'Ken')
-		self.assertContains(response, 'Sam')
+		self.assertNotContains(response, 'Lav')
+		self.assertNotContains(response, 'Ion')
 		
 		newTourist_2 = Tourist.objects.create()
-		Item.objects.create(TourId=newTourist_2, text='Stef')
-		Item.objects.create(TourId=newTourist_2, text='Harp')
+		Item.objects.create(TourId=newTourist_2, text='Lav')
+		Item.objects.create(TourId=newTourist_2, text='Ion')
 		response = self.client.get(f'/OpenTourList/{newTourist_2.id}/')
-		self.assertContains(response, 'Step')
-		self.assertContains(response, 'Harp')
+		self.assertNotContains(response, 'Sam')
+		self.assertNotContains(response, 'Ken')
 
 		
 	def test_listview_uses_listpage(self):
@@ -62,13 +60,13 @@ class ViewTest(TestCase):
 
 class CreateListTest(TestCase):
 	def test_save_POST_request(self):
-		response = self.client.post('/OpenTourList/newestlist',data={'idName':'New Entry'})	
+		response = self.client.post('/OpenTourList/newlist_url',data={'idName':'New Entry'})	
 		self.assertEqual(Item.objects.count(),1)
 		newItem = Item.objects.first()
-		self.assertEqual(newItem.text, 'New entry')
+		self.assertEqual(newItem.text, 'New Entry')
 
 	def test_redirects_POST(self):
-		response = self.client.post('/OpenTourList/newestlist',data={'idName':'New Entry'})
+		response = self.client.post('/OpenTourList/newlist_url',data={'idName':'New Entry'})
 		newList = Tourist.objects.first()
 		self.assertRedirects(response, f'/OpenTourList/{newList.id}/')
 
@@ -77,10 +75,10 @@ class AddItemTest(TestCase):
 		DummyList1 = Tourist.objects.create()
 		DummyList2 = Tourist.objects.create()
 		existingList = Tourist.objects.create()
-		self.client.post(f'/OpenTourList/{existingList.id}/addItem',data={'idName': 'New item for existing list'})
+		self.client.post(f'/OpenTourList/{existingList.id}/addItem',data={'idName': 'New Item for Existing List'})
 		self.assertEqual(Item.objects.count(),1)
 		newItem = Item.objects.first()
-		self.assertEqual(newItem.text, 'New item for existing list')
+		self.assertEqual(newItem.text, 'New Item for Existing List')
 		self.assertEqual(newItem.TourId, existingList)
 
 	def test_redirects_to_list_view(self):
@@ -88,5 +86,5 @@ class AddItemTest(TestCase):
 	 	DummyList2 = Tourist.objects.create()
 	 	DummyList3 = Tourist.objects.create()
 	 	existingList = Tourist.objects.create()
-	 	response = self.client.post(f'/OpenTourList/{existingList.id}/addItem',data={'idName': 'New item for existing list'})
+	 	response = self.client.post(f'/OpenTourList/{existingList.id}/addItem',data={'idName': 'New Item for Existing List'})
 	 	self.assertRedirects(response, f'/OpenTourList/{existingList.id}/')		

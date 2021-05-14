@@ -1,96 +1,68 @@
 <html>
 <body>
 <head>
-	<style type="text/css">
-	body 	{background-color: #D9ED92;}
-  	</style>
-
-<title>New Normal PH</title>
+<title>Titik Poetry Inc.</title>
 </head>
-	<script> </script>
-	<body>
-		<h1> Inter-Provincial Tourist Information Sheet </h1>
-		<p>  Tourist Health and Travel Data Summary </p> <br>
+<h1>Audition Form</h1>
+<p>Personal Info</p>
 
-		<form method="POST" action="/OpenTourList/{{ tId.id }}/addItem">
+<form method="POST" action="/Emergency/{{ RecId.id }}/addItem">
 
-	
-			<label>Name </label>
-			<input 
-				type="text" 
-				id="idName"
-				name="idName" 
-				placeholder="Full Name"
-				/> <br>
-			<label>Email Address </label>
-			<input 
-				type="email" 
-				id="idEmail" 
-				name="idEmail"  
-				placeholder="Email Address"
-			/><br>
-			<label>Swab Result Code </label>
-			<input 
-				type = "text"
-				id = "idUniCode"
-				name = "idUniCode"
-				placeholder = 'Swab Test Result Code'
-			/><br>
-			<label> Present Address </label><br>
-			<input 
-				type = "text"
-				id = "idOrigin"
-				name = "idOrigin"
-				placeholder = 'Where did you come from?'
-				/> <br>
-			<label> Place of Destination </label><br>
-			<input
-				type = "text"
-				id = "idDestination"
-				name = "idDestination"
-				placeholder = 'Preferred Local Destination'
-				/> <br>
-			<label> Travel Purpose </label><br><br>
-			<input
-				type = "text"
-				id = "idPurpose"
-				name = "idPurpose"
-				placeholder = 'Whats your travel purpose?'
-				/> <br>
-			<label> Additional Informations </label><br>
-			<input 
-				type = "text"
-				id = "idComp"
-				name = "idComp" 
-				placeholder = 'Do you have any companion?'
-				/> <br>
-			<input
-				type = "text"
-				id = "idPets"
-				name = "idPets"
-				placeholder = 'Do you have any pets?'
-				/> <br>
-			<input 
-				type = "text"
-				id = "idHistory"
-				name = "idHistory"
-				placeholder = 'Recent Travel History'
-				/> <br>
-		<input 
-			type="submit" 
-			id="inConfirm" 
-			name="inConfirm" 
-			style="color: red; background-color: lightgrey" 
-			value="Confirm"
-		/>
-			{% csrf_token %}
-		</form>
-		<table id="inList" name ="inList">
-			{% for item in tId.item_set.all %}
-			<tr>
-				<td>{{ forloop.counter }}: {{ item.text }}</td>
-			</tr>
-			{% endfor %}
-		</table>
+	<label>Name:</label>
+	<input 
+		type="text" 
+		id="Newmember"
+		name="Newmember" 
+		size="30" 
+		placeholder="Enter your name"
+	/><br/><br/>
+	<label>Email</label>
+	<input 
+		type="text" 
+		id="contact" 
+		name="contact" 
+		size="25" 
+		placeholder="Email"
+	/><br/><br/>
+	<label>Sex:</label>
+	<input 
+		type="text" 
+		id="Sex" 
+		name="Sex" 
+		size="30px" 
+		placeholder="Male/Female" 
+	/><br/><br/>
+	<label>Title of Piece</label>
+	<input 
+		type="text" 
+		id="Title" 
+		name="Title" 
+		size="25"
+		placeholder="Title of your piece"
+	/><br/><br/>
+	<label>Link of your performance</label>
+	<input 
+		type="text" 
+		id="Link" 
+		name="Link" 
+		size="25"
+		placeholder="Link"
+	/>
+	<input 
+		type="submit" 
+		id="inConfirm" 
+		name="inConfirm" 
+		style="color: red; background-color: lightgrey" 
+		value="Confirm"
+	/>
+	{% csrf_token %}
+</form>
+<table id="Table">
+	{% for item in RecId.item_set.all %}
+	<tr>
+		<td>{{ forloop.counter }}: {{ item.text }}</td>
+	</tr>
+	{% endfor %}
+</table>
 </body>
 </html>

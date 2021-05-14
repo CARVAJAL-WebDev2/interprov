@@ -109,7 +109,7 @@ class PageTesting(LiveServerTestCase):
 		inConfirm.click()
 		self.wait_rows_in_listtable('1: Lovely Joy')
 		viewlist_url = self.browser.current_url
-		self.assertRegex(viewlist_url, '/OpenTourList/.+')
+		self.assertRegex(viewlist_url, '/Emergency/.+')
 
 		self.browser.quit()
 		self.browser = webdriver.Firefox()
@@ -137,11 +137,12 @@ class PageTesting(LiveServerTestCase):
 		inConfirm.click()
 		self.wait_rows_in_listtable('1: Eljohn Torres')
 		user2_url = self.browser.current_url
-		self.assertRegex(user2_url, 'OpenTourList/.+')
+		self.assertRegex(user2_url, 'Emergency/.+')
 		self.assertNotEqual(viewlist_url, user2_url)
 		pageBody = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Lovely Joy', pageBody)
 		self.assertIn('Eljohn Torres', pageBody)
+
 
 
 
