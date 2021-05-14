@@ -1,68 +1,96 @@
 <html>
 <body>
 <head>
-<title>Titik Poetry Inc.</title>
+<title>New Normal PH</title>
 </head>
-<h1>Audition Form</h1>
-<p>Personal Info</p>
+<h1>Inter-Provincial Tourist Destination Tracker</h1>
+<p> Tourist Health and Travel Data Summary </p>
 
-<form method="POST" action="/Emergency/{{ RecId.id }}/addItem">
+<form method="POST" action="/OpenTourList/{{ TourId.id }}/addItem">
 
-	<label>Name:</label>
+	<label>Name </label>
 	<input 
 		type="text" 
-		id="Newmember"
-		name="Newmember" 
-		size="30" 
-		placeholder="Enter your name"
+		id="idName"
+		name="idName" 
+		placeholder="Full Name"
 	/><br/><br/>
-	<label>Email</label>
+	<label>Email Address </label>
 	<input 
-		type="text" 
-		id="contact" 
-		name="contact" 
-		size="25" 
+		type="email" 
+		id="idEmail" 
+		name="idEmail" 
 		placeholder="Email"
 	/><br/><br/>
-	<label>Sex:</label>
+	<label>Swab Result Code </label>
 	<input 
 		type="text" 
-		id="Sex" 
-		name="Sex" 
-		size="30px" 
-		placeholder="Male/Female" 
+		id="idUniCode" 
+		name="idUniCode" 
+		placeholder="Input Swab Bar Code" 
 	/><br/><br/>
-	<label>Title of Piece</label>
+	<label>Present Home Address </label>
 	<input 
 		type="text" 
-		id="Title" 
-		name="Title" 
-		size="25"
-		placeholder="Title of your piece"
+		id="idOrigin" 
+		name="idOrigin" 
+		placeholder="Where did you come from?"
 	/><br/><br/>
-	<label>Link of your performance</label>
+	<label>Place of Destination </label>
 	<input 
 		type="text" 
-		id="Link" 
-		name="Link" 
-		size="25"
-		placeholder="Link"
+		id="idDestination" 
+		name="idDestination" 
+		placeholder="Preferred Local Destination"
+	/>
+
+	<label>Travel Purpose </label>
+	<input 
+		type="text" 
+		id="idPurpose" 
+		name="idPurpose" 
+		placeholder="Input your Travel Purpose"
+	/><br>
+
+	<label> Additional Information </label>
+	<label>Travel Purpose </label>
+	<input 
+		type="text" 
+		id="idComp" 
+		name="idComp" 
+		placeholder="Do you have any companion?"
+	/>
+
+	<input 
+		type="text" 
+		id="idPets" 
+		name="idPets" 
+		placeholder="Do you have any pets with you?"
+	/>
+
+	<input 
+		type="text" 
+		id="idHistory" 
+		name="idHistory" 
+		placeholder="Recent Travel History"
 	/>
 	<input 
 		type="submit" 
-		id="inConfirm" 
-		name="inConfirm" 
+		id="idConfirm" 
+		name="idConfirm" 
 		style="color: red; background-color: lightgrey" 
 		value="Confirm"
+		placeholder="CONFIRM"
 	/>
 	{% csrf_token %}
 </form>
-<table id="Table">
-	{% for item in RecId.item_set.all %}
-	<tr>
-		<td>{{ forloop.counter }}: {{ item.text }}</td>
-	</tr>
+<table id="inList" id="inList" >
+	{% for item in TourId.item_set.all%}
+		<tr>
+			<td>{{ forloop.counter }}: {{ item.text }}</td>
+		</tr>
 	{% endfor %}
 </table>
+
 </body>
 </html>
